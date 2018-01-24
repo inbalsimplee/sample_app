@@ -2,7 +2,7 @@ require 'spec_helper'
 
 describe "AuthenticationPages" do
 	subject {page}
-	describe "authentication" do
+	describe "authorization" do
 
 		describe "as non-admin user" do
 	      let(:user) { FactoryGirl.create(:user) }
@@ -65,6 +65,18 @@ describe "AuthenticationPages" do
 		      end
 	        end
 			describe "in the Users Controller" do
+
+				describe "visiting the following page" do
+					before { visit following_user_path(user) }
+					it { should have_selector('title', text: 'Sign in') }
+				end
+
+				describe "visiting the followers page" do
+          			before { visit followers_user_path(user) }
+          			it { should have_selector('title', text: 'Sign in') }
+       	 		end
+
+
 				describe "visiting the edit page" do
 					before { edit_user_path(user) }
 					#TODO: need to check why it fails :-(
